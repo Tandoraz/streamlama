@@ -1,4 +1,4 @@
-# streamlama
+# StreamLama
 
 ## Project setup
 ```
