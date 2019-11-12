@@ -1,4 +1,5 @@
 <template>
+  <div>
     <v-text-field
       flat
       solo-inverted
@@ -8,25 +9,32 @@
       v-on:change="search()"
       v-model="searchQuery"
     ></v-text-field>
+
+    <MediaCard></MediaCard>
+  </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import SearchService from './search.service'
+import Vue from "vue";
+import SearchService from "./search.service";
+import MediaCard from "@/components/mediaCard/MediaCard.vue";
 
 export default Vue.extend({
-  name: 'Search',
+  name: "Search",
   data: () => ({
     searchService: new SearchService(),
-    searchQuery: '',
+    searchQuery: "",
     searchResult: []
   }),
+  components: {
+    MediaCard
+  },
   methods: {
-    search: function () {
+    search: function() {
       this.searchService.search(this.searchQuery).then(result => {
-        console.log(result)
-      })
+        console.log(result);
+      });
     }
   }
-})
+});
 </script>
