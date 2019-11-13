@@ -10,7 +10,9 @@
       v-model="searchQuery"
     ></v-text-field>
 
-    <MediaCard></MediaCard>
+    <div class="d-flex flex-wrap">
+      <MediaCard v-for="media in searchResponse.results" v-bind:media="media"></MediaCard>
+    </div>
   </div>
 </template>
 
@@ -24,7 +26,7 @@ export default Vue.extend({
   data: () => ({
     searchService: new SearchService(),
     searchQuery: "",
-    searchResult: []
+    searchResponse: {}
   }),
   components: {
     MediaCard
@@ -33,6 +35,7 @@ export default Vue.extend({
     search: function() {
       this.searchService.search(this.searchQuery).then(result => {
         console.log(result);
+        this.searchResponse = result.data;
       });
     }
   }
