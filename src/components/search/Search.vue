@@ -11,7 +11,7 @@
     ></v-text-field>
 
     <div class="d-flex flex-wrap">
-      <MediaCard v-for="media in searchResponse.results" v-bind:media="media"></MediaCard>
+      <MediaCard v-for="media in searchResponse.results" :key="media.id" :media="media"></MediaCard>
     </div>
   </div>
 </template>

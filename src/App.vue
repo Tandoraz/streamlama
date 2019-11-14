@@ -15,11 +15,15 @@
         <span class="font-weight-light"><b>S</b>tream<b>L</b>ama</span>
       </v-toolbar-title>
 
+      <v-toolbar-items>
+        <v-btn text @click="to('/')">Home</v-btn>
+        <v-btn text @click="to('/about')">About</v-btn>
+      </v-toolbar-items>
+
       <v-spacer></v-spacer>
 
-      <v-btn href="https://github.com/vuetifyjs/vuetify/releases/latest" target="_blank" text>
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
+      <v-btn icon>
+        <v-icon>person</v-icon>
       </v-btn>
     </v-app-bar>
 
@@ -36,6 +40,11 @@ export default Vue.extend({
   name: 'App',
   data: () => ({
     //
-  })
+  }),
+  methods: {
+    to: function(path: string) {
+      this.$router.push(path)
+    }
+  }
 })
 </script>
