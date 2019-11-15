@@ -42,7 +42,7 @@
         width="150px"
         height="150px"
       >
-        <div width="150px" height="150px" class="d-flex justify-center align-center">
+        <div class="d-flex justify-center align-center">
           <v-icon x-large style="width: 150px; height: 150px;">add</v-icon>
         </div>
       </v-card>
@@ -50,7 +50,7 @@
 
     <v-dialog v-model="dialog" max-width="400">
       <v-card>
-        <v-card-title class="headline">Registrate new user</v-card-title>
+        <v-card-title class="headline">Register new user</v-card-title>
 
         <v-card-text>
           Sorry! we currently do not allow to create a profile. <br>
@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 
 export default {
   name: "login",

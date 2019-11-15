@@ -4,10 +4,11 @@ import './registerServiceWorker'
 import router from './router'
 import vuetify from './plugins/vuetify'
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import firebaseConfig from './firebase.config';
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 let app = '';
 // Initialize Firebase
