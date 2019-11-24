@@ -2,13 +2,15 @@
   <div>
     <v-text-field
       flat
-      solo-inverted
+      solo
       hide-details
       label="Search"
       class="hidden-sm-and-down"
-      v-on:change="search()"
+      prepend-inner-icon="search"
+      @keyup="search"
       v-model="searchQuery"
-    ></v-text-field>
+    >
+    </v-text-field>
 
     <div class="d-flex flex-wrap">
       <MediaCard v-for="media in searchResponse.results" :key="media.id" :media="media"></MediaCard>
@@ -33,10 +35,11 @@ export default Vue.extend({
   },
   methods: {
     search: function() {
-      this.searchService.search(this.searchQuery).then(result => {
-        console.log(result);
-        this.searchResponse = result.data;
-      });
+      if (this.searchQuery.length > 2) {
+        this.searchService.search(this.searchQuery).then(result => {
+          this.searchResponse = result.data;
+        });
+      }
     }
   }
 });

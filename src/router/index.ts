@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import firebase from 'firebase/app'
-import Home from '../views/Home.vue'
+import Home from '../views/home/Home.vue'
 import Login from '../views/login/Login.vue'
 
 Vue.use(VueRouter);
@@ -28,12 +28,12 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import('../views/About.vue')
+    component: () => import('../views/about/About.vue')
   },
   {
-    path: '/media/:mediaType/:mediaId',
-    name: 'media',
-    component: () => import('../views/media/Media.vue'),
+    path: '/movie/:movieId',
+    name: 'movie',
+    component: () => import('../views/movie/Movie.vue'),
     meta: { requiresAuth: true }
   }
 ];

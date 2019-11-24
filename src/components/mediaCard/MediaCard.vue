@@ -1,35 +1,40 @@
 <template>
-  <v-card class="mx-auto my-2" max-width="344">
-    <v-img :src="imageUrl" width="200px" height="300px" @click="openMedia"></v-img>
-    <v-card-actions>
-      <v-btn color="purple" text @click="openMedia">Explore</v-btn>
-      <v-spacer></v-spacer>
-      <v-btn icon><v-icon>add</v-icon></v-btn>
-    </v-card-actions>
-  </v-card>
+  <div>
+    <movie-card v-if="isMovie" :movie="media"/>
+    <serie-card v-if="isSerie" :serie="media"/>
+    <person-card v-if="isPerson" :person="media"/>
+  </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import {SearchMovie, SearchSerie} from "../search/search.service";
+import {SearchResult} from "../search/search.service";
+import MovieCard from "./MovieCard.vue";
+import SerieCard from "./SerieCard.vue";
+import PersonCard from "./PersonCard.vue";
 
 export default Vue.extend({
   name: "MediaCard",
+  components: {
+    MovieCard,
+    SerieCard,
+    PersonCard
+  },
   props: {
-    media: Object,
+    media: Object as () => SearchResult
   },
   data: () => ({
     show: false
   }),
   computed: {
-    imageUrl: function () {
-      let endPath = (this.media.poster_path ? this.media.poster_path : this.media.profile_path) 
-      return "https://image.tmdb.org/t/p/w200" + endPath;
-    }
-  },
-  methods: {
-    openMedia: function() {
-      this.$router.push('about')
+    isMovie: function() {
+      return this.media.media_type === "movie";
+    },
+    isSerie: function () { 
+      return this.media.media_type === "tv";
+    },
+    isPerson: function(): boolean {
+      return this.media.media_type === "person";
     }
   }
 });

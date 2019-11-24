@@ -2,7 +2,7 @@
   <div class="login mx-12 mt-5 d-flex justify-center">
     <v-hover v-slot:default="{ hover }">
       <v-card
-        @click="login('tandoraz')"
+        @click="loginDialog = true; selectedUser = tandoraz"
         :elevation="hover ? 12 : 2"
         class="mx-2 my-2"
         width="150px"
@@ -19,7 +19,7 @@
     </v-hover>
     <v-hover v-slot:default="{ hover }">
       <v-card
-        @click="login('fibi')"
+        @click="loginDialog = true; selectedUser = fibi"
         :elevation="hover ? 12 : 2"
         class="mx-2 my-2"
         width="150px"
@@ -63,6 +63,27 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <v-dialog v-model="loginDialog" max-width="600px">
+      <v-card>
+        <v-card-text class="pt-12 pb-0">
+          <v-text-field 
+            label="Password"
+            type="password"
+            v-model="password"
+            :error-messages="loginError"
+            autofocus
+            outlined
+            @keyup.native.enter="login"
+            >
+          </v-text-field>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" text @click="login">Login</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -73,18 +94,24 @@ export default {
   name: "login",
   components: {},
   data: () => ({
-    dialog: false
+    dialog: false,
+    loginDialog: false,
+    tandoraz: process.env.VUE_APP_TANDORAZ,
+    fibi: process.env.VUE_APP_FIBI,
+    password: '',
+    selectedUser: '',
+    loginError: ''
   }),
   methods: {
-    login: function(username) {
-      console.log("login with " + username);
-      firebase.auth().signInWithEmailAndPassword('email', 'password')
+    login: function() {
+      firebase.auth().signInWithEmailAndPassword(this.selectedUser, this.password)
         .then(() => {
-          // TODO make login
+          this.$router.push('home');
         })
         .catch((error) => {
-          // TODO show error
-        })
+          this.loginError = error.message;
+        }
+      )
     }
   }
 };
