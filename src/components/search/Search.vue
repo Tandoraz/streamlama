@@ -12,11 +12,18 @@
     >
     </v-text-field>
 
-    <div class="d-flex flex-wrap">
+    <div class="search-result-container d-flex flex-wrap justify-center">
       <MediaCard v-for="media in searchResponse.results" :key="media.id" :media="media"></MediaCard>
     </div>
   </div>
 </template>
+
+<style lang="scss">
+// .search-result-container::after {
+//   content: "";
+//   flex: auto;
+// }
+</style>
 
 <script lang="ts">
 import Vue from "vue";

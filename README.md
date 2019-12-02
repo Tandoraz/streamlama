@@ -7,7 +7,7 @@ npm install
 
 Create A file called `.env` and add the follwoing variables with your values:
 ```
-TMDB_API_KEY=<your_api_key>
+VUE_APP_AUTH_TOKEN=<your_auth_token>
 
 # Firebase Config
 VUE_APP_FIREBASE_API_KEY=<firebase_api_key>

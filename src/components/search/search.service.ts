@@ -1,13 +1,17 @@
-import axios from 'axios'
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 import { AxiosResponse } from 'axios/index'
+import tmdb from '@/plugins/tmdb';
 
 export default class SearchService {
-  private baseUrl = 'https://api.themoviedb.org/3';
+  private http: AxiosInstance;
+
+  constructor() {
+    this.http = tmdb.getAxiosInstance();
+  }
 
   public search(searchValue: string): Promise<AxiosResponse<SearchResponse>> {
-    return axios.get(this.baseUrl + '/search/multi', {
+    return this.http.get('/search/multi', {
       params: {
-        api_key: process.env.VUE_APP_TMDB_API_KEY,
         query: searchValue
       }
     })

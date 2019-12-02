@@ -1,8 +1,8 @@
 <template>
   <div>
-    <movie-card v-if="isMovie" :movie="media"/>
-    <serie-card v-if="isSerie" :serie="media"/>
-    <person-card v-if="isPerson" :person="media"/>
+    <movie-card v-if="isMovie" :movie="media" :orientation="orientation" />
+    <serie-card v-if="isSerie" :serie="media" :orientation="orientation" />
+    <person-card v-if="isPerson" :person="media" :orientation="orientation" />
   </div>
 </template>
 
@@ -21,16 +21,22 @@ export default Vue.extend({
     PersonCard
   },
   props: {
-    media: Object as () => SearchResult
+    media: {
+      type: Object as () => SearchResult
+    },
+    orientation: {
+      type: String as () => "portrait" | "landscape",
+      default: "portrait"
+    }
   },
   data: () => ({
     show: false
   }),
   computed: {
-    isMovie: function() {
+    isMovie: function(): boolean {
       return this.media.media_type === "movie";
     },
-    isSerie: function () { 
+    isSerie: function (): boolean { 
       return this.media.media_type === "tv";
     },
     isPerson: function(): boolean {
