@@ -1,6 +1,7 @@
 import axios, {AxiosRequestConfig, AxiosInstance} from 'axios'
+import {TmdbConfig} from "@/model";
 
-class tmdb {
+export default class tmdb {
   private static config: TmdbConfig;
   private static TMDB_CONFIG_STORAGE_KEY = "TMDB_CONFIG";
 
@@ -13,9 +14,9 @@ class tmdb {
     let config = sessionStorage.getItem(this.TMDB_CONFIG_STORAGE_KEY);
     if (!config) {
       let configResult = await this.axiosInstance.get<TmdbConfig>('/configuration', {
-        headers: { 'Authorization': 'Bearer ' + process.env.VUE_APP_AUTH_TOKEN },
+        headers: {'Authorization': 'Bearer ' + process.env.VUE_APP_AUTH_TOKEN},
       });
-      this.config = configResult.data;
+      this.config = configResult.data as TmdbConfig;
       sessionStorage.setItem(this.TMDB_CONFIG_STORAGE_KEY, JSON.stringify(this.config));
     } else {
       this.config = this.loadLocalConfigOrUseDefault()
@@ -80,20 +81,3 @@ class tmdb {
   }
 
 }
-
-interface TmdbConfig {
-  images: TmdbImageConfig,
-  change_keys: string[]
-}
-
-interface TmdbImageConfig {
-  backdrop_sizes: string[],
-  base_url: string,
-  logo_sizes: string[],
-  poster_sizes: string[],
-  profile_sizes: string[],
-  secure_base_url: string,
-  still_sizes: string[]
-}
-
-export default tmdb;

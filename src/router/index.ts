@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import VueRouter, { Route } from 'vue-router'
+import VueRouter, {Route} from 'vue-router'
 import firebase from 'firebase/app'
 import Home from '../views/home/Home.vue'
 import Login from '../views/login/Login.vue'
@@ -16,7 +16,7 @@ const routes = [
     path: '/home',
     name: 'home',
     component: Home,
-    meta: { requiresAuth: true }
+    meta: {requiresAuth: true}
   },
   {
     path: '/login',
@@ -36,11 +36,11 @@ const routes = [
     name: 'movie',
     component: () => import('../views/movie/Movie.vue'),
     beforeEnter: async (to: Route, from: Route, next: any) => {
-      const movieService = new MovieService()
-      to.meta['movie'] = await movieService.loadMovie(to.params.movieId)
+      const movieService = new MovieService();
+      to.meta['movie'] = await movieService.loadMovie(to.params.movieId);
       next()
     },
-    meta: { requiresAuth: true }
+    meta: {requiresAuth: true}
   }
 ];
 

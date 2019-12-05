@@ -22,7 +22,7 @@
       <v-btn text @click="to('/about')">About</v-btn>
     </v-toolbar-items>
 
-    <v-spacer></v-spacer>
+    <v-spacer/>
 
     <v-menu left bottom absolute v-if="isLoggedIn">
       <template v-slot:activator="{ on }">
@@ -33,16 +33,16 @@
 
       <v-list>
         <v-list-item @click="logout">
-          <v-list-item-title>Logout</v-list-item-title>
           <v-list-item-icon>
             <v-icon>exit_to_app</v-icon>
           </v-list-item-icon>
+          <v-list-item-title>Logout</v-list-item-title>
         </v-list-item>
         <v-list-item @click="() => {}">
-          <v-list-item-title>Settings</v-list-item-title>
           <v-list-item-icon>
             <v-icon>more_vert</v-icon>
           </v-list-item-icon>
+          <v-list-item-title>Settings</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-menu>
@@ -60,7 +60,7 @@ export default Vue.extend({
   }),
   computed: {
     isLoggedIn: function() {
-      return firebase.auth().currentUser ? true : false
+      return !!firebase.auth().currentUser
     }
   },
   methods: {

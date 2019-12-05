@@ -55,10 +55,10 @@
         <v-card-text>
           Sorry! we currently do not allow to create a profile. <br>
           If you think you are special enough, then please contact us and maybe we add you to this project.
-          </v-card-text>
+        </v-card-text>
 
         <v-card-actions>
-          <v-spacer></v-spacer>
+          <v-spacer/>
           <v-btn text @click="dialog = false">OK</v-btn>
         </v-card-actions>
       </v-card>
@@ -67,7 +67,7 @@
     <v-dialog v-model="loginDialog" max-width="600px">
       <v-card>
         <v-card-text class="pt-12 pb-0">
-          <v-text-field 
+          <v-text-field
             label="Password"
             type="password"
             v-model="password"
@@ -75,11 +75,11 @@
             autofocus
             outlined
             @keyup.native.enter="login"
-            >
+          >
           </v-text-field>
         </v-card-text>
         <v-card-actions>
-          <v-spacer></v-spacer>
+          <v-spacer/>
           <v-btn color="primary" text @click="login">Login</v-btn>
         </v-card-actions>
       </v-card>
@@ -88,31 +88,31 @@
 </template>
 
 <script>
-import firebase from 'firebase/app';
+  import firebase from 'firebase/app';
 
-export default {
-  name: "login",
-  components: {},
-  data: () => ({
-    dialog: false,
-    loginDialog: false,
-    tandoraz: process.env.VUE_APP_TANDORAZ,
-    fibi: process.env.VUE_APP_FIBI,
-    password: '',
-    selectedUser: '',
-    loginError: ''
-  }),
-  methods: {
-    login: function() {
-      firebase.auth().signInWithEmailAndPassword(this.selectedUser, this.password)
-        .then(() => {
-          this.$router.push('home');
-        })
-        .catch((error) => {
-          this.loginError = error.message;
-        }
-      )
+  export default {
+    name: "login",
+    components: {},
+    data: () => ({
+      dialog: false,
+      loginDialog: false,
+      tandoraz: process.env.VUE_APP_TANDORAZ,
+      fibi: process.env.VUE_APP_FIBI,
+      password: '',
+      selectedUser: '',
+      loginError: ''
+    }),
+    methods: {
+      login: function () {
+        firebase.auth().signInWithEmailAndPassword(this.selectedUser, this.password)
+          .then(() => {
+            this.$router.push('home');
+          })
+          .catch((error) => {
+              this.loginError = error.message;
+            }
+          )
+      }
     }
-  }
-};
+  };
 </script>
