@@ -16,7 +16,6 @@ interface SearchResponse {
 }
 
 interface SearchResult {
-  id: number
   media_type: MediaType
 }
 
@@ -60,6 +59,7 @@ interface SearchPerson extends SearchResult, Person {
 }
 
 interface Movie {
+  id: number
   poster_path: string
   overview: string
   genre_ids: number[]
@@ -74,6 +74,48 @@ interface Movie {
   release_date: string
   video: boolean
   adult: boolean
+}
+
+interface MovieDetail extends Movie {
+  belongs_to_collection: object,
+  budget: number,
+  credits: Credits,
+  external_ids: any,
+  genres: any[],
+  homepage: string,
+  imdb_id: string,
+  production_companies: any,
+  production_countries: any,
+  revenue: number,
+  runtime: number,
+  similar: SimilarMovie,
+  spoken_languages: any,
+  status: MovieStatus,
+  tagline: string,
+  videos: Video[]
+}
+
+interface SimilarMovie {
+  page: number,
+  results: SearchMovie[],
+  total_pages: number,
+  total_results: number
+}
+
+interface Credits {
+  cast: CastMember[],
+  crew: CrewMember[]
+}
+
+interface Video {
+  id: string,
+  iso_639_1: string,
+  iso_3166_1: string,
+  key: string,
+  name: string,
+  site: string,
+  size: VideoSize,
+  type: VideoType
 }
 
 interface TmdbConfig {
@@ -91,10 +133,10 @@ interface TmdbImageConfig {
   still_sizes: string[]
 }
 
-interface Person{
+interface Person {
   id?: number
-  name?:string
-  profile_path?:string
+  name?: string
+  profile_path?: string
 }
 
 interface CastMember extends Person {
@@ -113,3 +155,6 @@ interface CrewMember extends Person {
 }
 
 type MediaType = "movie" | "tv" | "person";
+type MovieStatus = "Rumored" | "Planned" | "In Production" | "Post Production" | "Released" | "Canceled";
+type VideoType = "Trailer" | "Teaser" | "Clip" | "Featurette" | "Behind the Scenes" | "Bloopers";
+type VideoSize = 360 | 480 | 720 | 1080;

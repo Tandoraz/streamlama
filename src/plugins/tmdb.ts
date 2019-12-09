@@ -21,7 +21,7 @@ export default class tmdb {
     } else {
       this.config = this.loadLocalConfigOrUseDefault()
     }
-    console.log(this.config);
+    //console.log(this.config);
   }
 
   private static interceptor = (request: AxiosRequestConfig) => {

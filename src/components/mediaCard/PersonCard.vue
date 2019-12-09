@@ -4,7 +4,7 @@
     <div v-else class="d-flex jusifiy-content default-poster">
       <v-icon x-large disabled class="default-icon">person_outlined</v-icon>
     </div>
-    <div class="person-name">{{ person.name }}</div>
+    <div class="person-name">{{ person.name }} <div v-if="isCast"> {{ person.character }}</div></div>
   </v-card>
 </template>
 
@@ -40,13 +40,13 @@
 <script lang="ts">
   import Vue from "vue";
   import tmdb from "@/plugins/tmdb";
-  import {SearchPerson} from "@/model";
+  import {CastMember, SearchPerson} from "@/model";
 
   export default Vue.extend({
     name: "PersonCard",
     props: {
       person: {
-        type: Object as () => SearchPerson
+        type: Object as () => SearchPerson | CastMember
       },
       orientation: {
         type: String as () => "portrait" | "landscape",
@@ -67,6 +67,9 @@
       },
       isLandscape: function (): boolean {
         return this.orientation === "landscape";
+      },
+      isCast: function(): boolean {
+        return this.person.character
       }
     },
     methods: {
