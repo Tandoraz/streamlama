@@ -1,7 +1,7 @@
 <template>
   <v-container class="movie">
     <div class="d-flex">
-      <v-img :src="poster" width="500px"/>
+      <v-img :src="poster" width="300px"/>
       <div>
         <v-badge>
           <template v-slot:badge>
@@ -12,7 +12,7 @@
         <p class="subtitle-2">{{ movie.tagline }}</p>
         <div>{{ movie.overview }}</div>
         <div>
-          <v-btn class="ma-2" dark fab outlined small color="primary">
+          <v-btn class="ma-2" dark fab outlined small color="primary" v-if="hasHomepage" @click="openHomepage()">
             <v-icon dark>home</v-icon>
           </v-btn>
           <v-btn class="ma-2" dark fab outlined small color="primary">
@@ -26,7 +26,6 @@
             Play Trailer
           </v-btn>
         </div>
-        <a :href="movie.homepage">Homepage</a>
         <p>{{ movie.release_date }} - {{ movie.status }}</p>
       </div>
     </div>
@@ -37,7 +36,7 @@
       </div>
     </div>
     <div v-if="movie.credits && movie.credits.cast">
-      <h2>Crew:</h2>
+      <h2>Cast:</h2>
       <div class="d-flex flex-wrap">
         <person-card v-for="cast in movie.credits.cast" :key="cast.id" :person="cast" :orientation="'portrait'"/>
       </div>
@@ -52,6 +51,7 @@
   import {MovieDetail} from "@/model";
   import MovieCard from "@/components/mediaCard/MovieCard.vue";
   import PersonCard from "@/components/mediaCard/PersonCard.vue";
+  import firebase from "firebase";
 
   export default {
     name: "movie",
@@ -62,12 +62,20 @@
     data: () => ({
       movie: {} as MovieDetail
     }),
+    methods: {
+      openHomepage: function () {
+        window.open(this.movie.homepage, '_blank');
+      }
+    },
     computed: {
       poster: function (): string {
         return `${tmdb.getImageBaseUrl()}${tmdb.getPosterSize(500)}${this.movie.poster_path}`;
       },
       backdrop: function (): string {
         return `${tmdb.getImageBaseUrl()}original${this.movie.backdrop_path}`;
+      },
+      hasHomepage: function (): boolean {
+        return !!this.movie.homepage;
       }
     },
     mounted: function () {
