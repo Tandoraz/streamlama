@@ -1,7 +1,8 @@
 <template>
   <v-container class="movie">
+    <v-parallax :src="backdrop" style="margin-top: -12px" />
     <div class="d-flex">
-      <v-img :src="poster" width="300px"/>
+      <v-img :src="poster" width="200px"/>
       <div>
         <v-badge>
           <template v-slot:badge>
@@ -31,17 +32,16 @@
     </div>
     <div v-if="movie.similar && movie.similar.results">
       <h2>Similar Movies:</h2>
-      <div class="d-flex flex-wrap">
+      <div class="d-flex flex-wrap justify-center">
         <movie-card v-for="movie in movie.similar.results" :key="movie.id" :movie="movie" :orientation="'portrait'"/>
       </div>
     </div>
     <div v-if="movie.credits && movie.credits.cast">
       <h2>Cast:</h2>
-      <div class="d-flex flex-wrap">
+      <div class="d-flex flex-wrap justify-center">
         <person-card v-for="cast in movie.credits.cast" :key="cast.id" :person="cast" :orientation="'portrait'"/>
       </div>
     </div>
-    <v-img :src="backdrop" contain/>
     <pre>{{ movie }}</pre>
   </v-container>
 </template>

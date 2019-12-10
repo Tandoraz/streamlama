@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-1 my-2 card-movie" @click="openMedia">
+  <v-card class="mx-1 my-2 card-movie" @click="openMedia()">
     <div class="title-movie">{{ movie.title }}</div>
     <v-img v-if="hasPicture" :src="imageUrl" width="200px" height="300px" class="poster"/>
     <div v-else class="d-flex jusifiy-content default-poster">
