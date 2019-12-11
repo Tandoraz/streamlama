@@ -30,19 +30,38 @@
         <p>{{ movie.release_date }} - {{ movie.status }}</p>
       </div>
     </div>
-    <div v-if="movie.similar && movie.similar.results">
-      <h2>Similar Movies:</h2>
-      <div class="d-flex flex-wrap justify-center">
-        <movie-card v-for="movie in movie.similar.results" :key="movie.id" :movie="movie" :orientation="'portrait'"/>
-      </div>
-    </div>
-    <div v-if="movie.credits && movie.credits.cast">
-      <h2>Cast:</h2>
-      <div class="d-flex flex-wrap justify-center">
-        <person-card v-for="cast in movie.credits.cast" :key="cast.id" :person="cast" :orientation="'portrait'"/>
-      </div>
-    </div>
-    <pre>{{ movie }}</pre>
+
+
+    <v-tabs dark centered style="margin-left: -12px; margin-right: -24px">
+      <v-tabs-slider />
+
+      <v-tab :href="'#cast'">Cast</v-tab>
+      <v-tab :href="'#similar'">Similar</v-tab>
+      <v-tab :href="'#other'">Other</v-tab>
+
+      <v-tab-item :value="'cast'">
+        <div v-if="movie.credits && movie.credits.cast">
+          <h2>Cast:</h2>
+          <div class="d-flex flex-wrap">
+            <person-card v-for="cast in movie.credits.cast" :key="cast.id" :person="cast" :orientation="'portrait'"/>
+          </div>
+        </div>
+      </v-tab-item>
+      <v-tab-item :value="'similar'">
+        <div v-if="movie.similar && movie.similar.results">
+          <h2>Similar Movies:</h2>
+          <div class="d-flex flex-wrap">
+            <movie-card v-for="movie in movie.similar.results" :key="movie.id" :movie="movie" :orientation="'portrait'"/>
+          </div>
+        </div>
+      </v-tab-item>
+      <v-tab-item :value="'other'">
+        <div>
+          <pre>{{ movie }}</pre>
+        </div>
+      </v-tab-item>
+
+    </v-tabs>
   </v-container>
 </template>
 
