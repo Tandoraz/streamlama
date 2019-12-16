@@ -35,11 +35,6 @@ const routes = [
     path: '/movie/:movieId',
     name: 'movie',
     component: () => import('../views/movie/Movie.vue'),
-    beforeEnter: async (to: Route, from: Route, next: any) => {
-      const movieService = new MovieService();
-      to.meta['movie'] = await movieService.loadMovie(to.params.movieId);
-      next()
-    },
     meta: {requiresAuth: true}
   }
 ];
