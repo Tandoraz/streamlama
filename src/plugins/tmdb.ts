@@ -14,18 +14,17 @@ export default class tmdb {
     let config = sessionStorage.getItem(this.TMDB_CONFIG_STORAGE_KEY);
     if (!config) {
       let configResult = await this.axiosInstance.get<TmdbConfig>('/configuration', {
-        headers: {'Authorization': 'Bearer ' + process.env.VUE_APP_AUTH_TOKEN},
+        headers: {'Authorization': 'Bearer ' + process.env.VUE_APP_TMDB_AUTH_TOKEN},
       });
       this.config = configResult.data as TmdbConfig;
       sessionStorage.setItem(this.TMDB_CONFIG_STORAGE_KEY, JSON.stringify(this.config));
     } else {
       this.config = this.loadLocalConfigOrUseDefault()
     }
-    //console.log(this.config);
   }
 
   private static interceptor = (request: AxiosRequestConfig) => {
-    request.headers['Authorization'] = 'Bearer ' + process.env.VUE_APP_AUTH_TOKEN;
+    request.headers['Authorization'] = 'Bearer ' + process.env.VUE_APP_TMDB_AUTH_TOKEN;
     return request
   };
 

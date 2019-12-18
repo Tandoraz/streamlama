@@ -92,11 +92,12 @@
 
 <script lang="ts">
   import tmdb from "../../plugins/tmdb";
-  import {MovieDetail} from "@/model";
+  import {Movie, MovieDetail} from "@/model";
   import MovieCard from "@/components/mediaCard/MovieCard.vue";
   import PersonCard from "@/components/mediaCard/PersonCard.vue";
-  import firebase from "firebase";
   import MovieService from "@/views/movie/movie.service";
+  import {Route} from "vue-router";
+  import {AxiosResponse} from "axios";
 
   export default {
     name: "movie",
@@ -113,13 +114,13 @@
       this.fetchMovie(this.$route.params.movieId)
     },
     watch: {
-      $route(to, from) {
+      $route(to: Route, _: Route) {
         this.fetchMovie(to.params.movieId)
       }
     },
     methods: {
       fetchMovie: function (id: string) {
-        this.movieService.loadMovie(id).then((result) => {
+        this.movieService.loadMovie(id).then((result: AxiosResponse<Movie>) => {
           console.log(result);
           this.movie = result.data;
           this.loading = false;

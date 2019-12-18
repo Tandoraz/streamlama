@@ -2,7 +2,7 @@
   <div class="nav">
 
     <v-app-bar app class="navbar" color="#303030" elevation="0">
-      <v-btn text icon dark @click="mini = !mini">
+      <v-btn text icon dark @click="mini = !mini" v-if="isLoggedIn">
         <v-icon>menu</v-icon>
       </v-btn>
       <v-toolbar-title class="headline">
@@ -10,7 +10,7 @@
       </v-toolbar-title>
 
       <v-spacer/>
-      <v-btn text @click="logout()">
+      <v-btn text @click="logout()" v-if="isLoggedIn">
         Sign out <v-icon class="ml-3">exit_to_app</v-icon>
       </v-btn>
     </v-app-bar>

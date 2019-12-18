@@ -7,7 +7,7 @@ npm install
 
 Create A file called `.env` and add the follwoing variables with your values:
 ```
-VUE_APP_AUTH_TOKEN=<your_auth_token>
+VUE_APP_TMDB_AUTH_TOKEN=<your_tmdb_auth_token>
 
 # Firebase Config
 VUE_APP_FIREBASE_API_KEY=<firebase_api_key>
@@ -18,10 +18,6 @@ VUE_APP_FIREBASE_STORAGE_BUCKET=<firebase_storage_bucket>
 VUE_APP_FIREBASE_MESSAGING_SENDER_ID=<firebase_sender_id>
 VUE_APP_FIREBASE_APP_ID=<firebase_app_id>
 VUE_APP_FIREBASE_MEASUREMENT_ID=<firebase_measuerement_id>
-
-# User's
-VUE_APP_TANDORAZ=
-VUE_APP_FIBI=
 ```
 
 ### Compiles and hot-reloads for development

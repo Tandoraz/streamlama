@@ -1,52 +1,35 @@
 <template>
-  <div class="login mx-12 mt-5 d-flex justify-center">
-    <v-hover v-slot:default="{ hover }">
-      <v-card
-        @click="loginDialog = true; selectedUser = tandoraz"
-        :elevation="hover ? 12 : 2"
-        class="mx-2 my-2"
-        width="150px"
-        height="150px"
-      >
-        <v-img
-          width="150px"
-          class="white--text align-end"
-          src="https://us.123rf.com/450wm/kritchanut/kritchanut1406/kritchanut140600112/29213222-stock-vector-male-silhouette-avatar-profile-picture.jpg?ver=6"
-        >
-          <v-card-title>Tandoraz</v-card-title>
-        </v-img>
-      </v-card>
-    </v-hover>
-    <v-hover v-slot:default="{ hover }">
-      <v-card
-        @click="loginDialog = true; selectedUser = fibi"
-        :elevation="hover ? 12 : 2"
-        class="mx-2 my-2"
-        width="150px"
-        height="150px"
-      >
-        <v-img
-          width="150px"
-          class="white--text align-end"
-          src="https://us.123rf.com/450wm/kritchanut/kritchanut1406/kritchanut140600112/29213222-stock-vector-male-silhouette-avatar-profile-picture.jpg?ver=6"
-        >
-          <v-card-title>Fibi</v-card-title>
-        </v-img>
-      </v-card>
-    </v-hover>
-    <v-hover v-slot:default="{ hover }">
-      <v-card
-        @click.stop="dialog = true"
-        :elevation="hover ? 12 : 2"
-        class="mx-2 my-2"
-        width="150px"
-        height="150px"
-      >
-        <div class="d-flex justify-center align-center">
-          <v-icon x-large style="width: 150px; height: 150px;">add</v-icon>
-        </div>
-      </v-card>
-    </v-hover>
+  <div class="login container">
+    <v-row justify="space-around">
+      <form class="my-12 px-5">
+        <v-alert
+          v-if="loginError"
+          type="error"
+          border="left"
+          class="mb-8">
+          {{loginError}}
+        </v-alert>
+
+        <v-text-field
+          v-model="username"
+          label="Username"
+          type="email"
+          outlined
+          autofocus
+          @keyup.native.enter="login"
+        />
+        <v-text-field
+          v-model="password"
+          label="Password"
+          type="password"
+          outlined
+          @keyup.native.enter="login"
+        />
+
+        <v-btn color="primary" class="submit-btn mb-3" @click="login">Login</v-btn>
+        <div class="text-center">Don't have an account yet? <a @click="dialog = true">Register here</a></div>
+      </form>
+    </v-row>
 
     <v-dialog v-model="dialog" max-width="400">
       <v-card>
@@ -63,29 +46,25 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-
-    <v-dialog v-model="loginDialog" max-width="600px">
-      <v-card>
-        <v-card-text class="pt-12 pb-0">
-          <v-text-field
-            label="Password"
-            type="password"
-            v-model="password"
-            :error-messages="loginError"
-            autofocus
-            outlined
-            @keyup.native.enter="login"
-          >
-          </v-text-field>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer/>
-          <v-btn color="primary" text @click="login">Login</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
   </div>
 </template>
+
+<style lang="scss">
+  form {
+    width: 500px;
+
+    .submit-btn {
+      width: 100%;
+      height: 54px !important;
+    }
+    a {
+      font-style: italic;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  }
+</style>
 
 <script>
   import firebase from 'firebase/app';
@@ -95,16 +74,13 @@
     components: {},
     data: () => ({
       dialog: false,
-      loginDialog: false,
-      tandoraz: process.env.VUE_APP_TANDORAZ,
-      fibi: process.env.VUE_APP_FIBI,
       password: '',
-      selectedUser: '',
+      username: '',
       loginError: ''
     }),
     methods: {
       login: function () {
-        firebase.auth().signInWithEmailAndPassword(this.selectedUser, this.password)
+        firebase.auth().signInWithEmailAndPassword(this.username, this.password)
           .then(() => {
             this.$router.push('home');
           })
